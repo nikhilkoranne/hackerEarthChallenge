@@ -37,29 +37,36 @@ angular.module('beerOrderingApp', ['ui.router', 'checklist-model'])
     vm.filteredBeers = [];
     vm.listLoaded = false;
     vm.loader = false;
+    getBeersMenu();
 
     vm.styleSelected = function (style) {
       vm.loader = true;
       $timeout(function () {
-        vm.filteredBeers = _.filter(vm.beers, function (beer) {
+        vm.beers = _.filter(vm.beers, function (beer) {
           return vm.selectedStyles.includes(beer.style);
         });
+        if (vm.selectedStyles.length === 0) {
+          getBeersMenu();
+        }
         vm.loader = false;
       });
     };
 
-    BeersService.getBeersMenu().then(function (response) {
-      vm.beers = response;
-      vm.styles = _.flatMap(_.uniqBy(vm.beers, 'style'), 'style');
-      vm.listLoaded = true;
-    });
+    function getBeersMenu() {
+      BeersService.getBeersMenu().then(function (response) {
+        vm.beers = response;
+        vm.styles = _.flatMap(_.uniqBy(vm.beers, 'style'), 'style');
+        vm.listLoaded = true;
+      });
+    }
   }])
   .service('BeersService', function ($http) {
     return {
       getBeersMenu: function () {
         return $http({
           method: 'GET',
-          url: 'http://starlord.hackerearth.com/beercraft'
+          url: 'http://starlord.hackerearth.com/beercraft',
+          cache: true
         })
           .then(function (response) {
             return response.data;

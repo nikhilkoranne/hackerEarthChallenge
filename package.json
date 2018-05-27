@@ -20,9 +20,7 @@
     "url": "git+https://github.com/nikhilkoranne/hackerEarthChallenge.git"
   },
   "author": "Nikhil Koranne",
-  "contributors": [
-    "David Miller (http://davidmiller.io/)"
-  ],
+  "contributors": [],
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/nikhilkoranne/hackerEarthChallenge/issues"
@@ -34,7 +32,6 @@
     "bootstrap": "4.0.0",
     "font-awesome": "4.7.0",
     "jquery": "3.3.1",
-    "jquery.easing": "^1.4.1",
     "magnific-popup": "^1.1.0"
   },
   "devDependencies": {
