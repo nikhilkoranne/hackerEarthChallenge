@@ -1,14 +1,14 @@
 <section class="portfolio" id="portfolio">
   <div class="container">
     <h2 class="text-center text-uppercase text-secondary mb-0">Explore Our Menu
-      <i class="fa fa-spinner fa-spin fa-fw" ng-if="!vm.listLoaded"></i>
+      <i class="fa fa-spinner fa-spin fa-fw" ng-if="!vm.listLoaded || vm.loader"></i>
     </h2>
     <hr class="star-dark mb-5">
-    <div class="style-filter-list" ng-if="vm.listLoaded">
+    <!-- <div class="style-filter-list" ng-if="vm.listLoaded">
       <label ng-repeat="style in vm.styles" class="label-checklist">
         <input type="checkbox" ng-change="vm.styleSelected(style)" checklist-model="vm.selectedStyles" checklist-value="style" ng-model="checked"> {{style}}
       </label>
-    </div>
+    </div> -->
     <form ng-if="vm.listLoaded">
       <div class="control-group">
         <div class="form-group floating-label-form-group controls mb-0 pb-2">
@@ -17,32 +17,37 @@
         </div>
       </div>
     </form>
+    <div class="style-filter-list" ng-if="vm.listLoaded">
+      <label ng-repeat="style in vm.styles" class="label-checklist">
+        <input type="checkbox" ng-change="vm.styleSelected(style)" checklist-model="vm.selectedStyles" checklist-value="style" ng-model="checked"> {{style}}
+      </label>
+    </div>
     <div class="row">
-        <div ng-if="vm.filteredBeers.length != 0" class="col-md-6 col-lg-3" ng-repeat="item in vm.filteredBeers | filter: vm.searchText">
-            <a class="portfolio-item d-block mx-auto" href="#portfolio-modal-1">
-              <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
-                <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
-                  <div>
-                    <strong>{{item.name}}</strong>
-                  </div>
-                  <div ng-if="item.abv">
-                    Alcoholic Content : {{item.abv}}
-                  </div>
-                  <div ng-if="item.ibu">
-                    Bitterness : {{item.ibu}}
-                  </div>
-                  <div ng-if="item.style">
-                    Style : {{item.style}}
-                  </div>
-                  <div ng-if="item.ounces">
-                    Size : {{item.ounces}}
-                  </div>
-                </div>
+      <div ng-if="vm.filteredBeers.length != 0" class="col-md-6 col-lg-3" ng-repeat="item in vm.filteredBeers | filter: vm.searchText">
+        <a class="portfolio-item d-block mx-auto" href="#portfolio-modal-1">
+          <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
+            <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
+              <div>
+                <strong>{{item.name}}</strong>
               </div>
-              <img class="img-fluid" src="img/tower.png" alt="">
-              <strong>{{item.name}}</strong>
-            </a>
+              <div ng-if="item.abv">
+                Alcoholic Content : {{item.abv}}
+              </div>
+              <div ng-if="item.ibu">
+                Bitterness : {{item.ibu}}
+              </div>
+              <div ng-if="item.style">
+                Style : {{item.style}}
+              </div>
+              <div ng-if="item.ounces">
+                Size : {{item.ounces}}
+              </div>
+            </div>
           </div>
+          <img class="img-fluid" src="img/tower.png" alt="">
+          <strong>{{item.name}}</strong>
+        </a>
+      </div>
 
       <div ng-if="vm.filteredBeers.length === 0" class="col-md-6 col-lg-3" ng-repeat="item in vm.beers | filter: vm.searchText">
         <a class="portfolio-item d-block mx-auto" href="#portfolio-modal-1">

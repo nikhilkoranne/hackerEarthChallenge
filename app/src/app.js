@@ -36,12 +36,15 @@ angular.module('beerOrderingApp', ['ui.router', 'checklist-model'])
     vm.selectedStyles = [];
     vm.filteredBeers = [];
     vm.listLoaded = false;
+    vm.loader = false;
 
     vm.styleSelected = function (style) {
+      vm.loader = true;
       $timeout(function () {
         vm.filteredBeers = _.filter(vm.beers, function (beer) {
           return vm.selectedStyles.includes(beer.style);
         });
+        vm.loader = false;
       });
     };
 
